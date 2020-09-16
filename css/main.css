@@ -1,0 +1,287 @@
+@charset "utf-8";
+
+/*큐브트립 CSS*/
+
+
+@import url('https://fonts.googleapis.com/css?family=Black+And+White+Picture|East+Sea+Dokdo|Jua&display=swap');
+/*
+            font-family: 'Black And White Picture', sans-serif;
+            font-family: 'East Sea Dokdo', cursive;
+            font-family: 'Jua', sans-serif;
+        
+        */
+
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    overflow: hidden;
+    background-image: linear-gradient(to bottom, #777 30%, #ccc 70%, #ccc 100%);
+}
+
+/*1.전체제목*/
+.tit {
+    text-align: center;
+    padding-top: 50px;
+    font-family: 'Black And White Picture', sans-serif;
+    font-size: 50px;
+    color: #fff;
+    background: url(../images/citybg.png) no-repeat center/auto 100%;
+}
+
+/*2.메뉴*/
+.city {
+    position: fixed;
+    top: 50px;
+    right: 50px;
+}
+
+.city ul {
+    width: 200px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    /*원근설정*/
+    perspective: 480px;
+}
+
+.city li {
+    height: 100px;
+    background-image: linear-gradient(to right, transparent, blue);
+    /*트랜스폼 회전축 변경하기*/
+    transform-origin: right;
+    transition: transform .4s ease-out;
+}
+
+/*마우스 오버시*/
+.city li:hover {
+    background-image: linear-gradient(to right, transparent, red);
+    transform: rotateY(15deg);
+}
+
+.city a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    font: bold 52px/100px 'East Sea Dokdo', cursive;
+    text-decoration: none;
+    text-align: center;
+    color: #fff;
+}
+
+/*3.부모큐브*/
+.cube {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    height: 400px;
+    /*outline: 2px solid #000;*/
+    /*
+                입체설정하기:
+                입체로 설정할 요소의 부모박스에 아래와 같이
+                설정한다!
+                transform-style: preserve-3d
+                기본값은 flat 즉 2D 임
+                3D로 전환함!
+            */
+    transform-style: preserve-3d;
+    transform: translate(-50%, -50%) rotateX(0deg) rotateY(0deg);
+}
+
+/*큐브각면 공통*/
+.cube > span {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: .8;
+}
+
+/*큐브각면 셋팅*/
+/*
+          translateZ는 입체설정 적용시 z축(화면앞뒤방향) 이동
+        */
+/*앞면: 시작면*/
+.cube > span:nth-child(1) {
+    /*background-color: red;*/
+    background: url(../images/cityMain.jpg) no-repeat center/cover;
+    transform: translateZ(200px);
+    /*한면 크기의 절반만큼 앞으로 이동!*/
+}
+
+/*오른쪽면 - 런던*/
+.cube > span:nth-child(2) {
+    /*background-color: green;*/
+    background: url(../images/London_city.jpg) no-repeat center/cover;
+    transform: rotateY(90deg) translateZ(200px);
+}
+
+/*뒷면 - 파리*/
+.cube > span:nth-child(3) {
+    /*background-color: orange;*/
+    background: url(../images/parisCity.jpg) no-repeat center/cover;
+    transform: rotateY(180deg) translateZ(200px);
+}
+
+/*왼쪽면 - 베를린*/
+.cube > span:nth-child(4) {
+    /*background-color: yellow;*/
+    background: url(../images/berlin_city.jpg) no-repeat center/cover;
+    transform: rotateY(-90deg) translateZ(200px);
+}
+
+/*윗면 - 서울*/
+.cube > span:nth-child(5) {
+    /*background-color: blue;*/
+    background: url(../images/seoulCity.jpg) no-repeat center/cover;
+    transform: rotateX(90deg) translateZ(200px);
+}
+
+/*아래면 - 뉴욕*/
+.cube > span:nth-child(6) {
+    /*background-color: purple;*/
+    background: url(../images/newyorkCity.jpg) no-repeat right/auto 110%;
+    transform: rotateX(-90deg) translateZ(200px);
+}
+
+/*도시설명박스*/
+.cbox {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /*정중앙이동*/
+    width: 400px;
+    height: 400px;
+    font-family: 'Jua', sans-serif;
+    color: #fff;
+    text-shadow: 0 0 1px #000;
+    opacity: 0;
+    /*투명하게-안보임*/
+}
+
+/*개별도시박스*/
+.ctxt {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    border: 3px solid #fff;
+}
+
+/*도시명*/
+.ctxt h2 {
+    margin: 0;
+    padding: 0;
+    height: 100px;
+    text-align: center;
+    font-size: 50px;
+    line-height: 100px;
+}
+
+/*도시설명*/
+.ctxt p {
+    width: 100%;
+    height: calc(100% - 100px);
+    /*
+                사이즈 계산하는 css
+                calc(몇% - 몇px)
+                해당 px크기를 뺀 나머지 크기설정
+                (주의: 빼기 기호 앞과 뒤에 공백필수!)
+            */
+    box-sizing: border-box;
+    /*보더,패딩포함크기*/
+    margin: 0;
+    padding: 10px;
+    font-size: 16px;
+    line-height: 28px;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+/*모바일 미디어쿼리*/
+@media only screen and (max-width:750px) {
+
+    /*메뉴변경하기*/
+    .city {
+        top: 30px;
+        right: auto;
+        left: 0;
+        width: 100%;
+    }
+
+    .city ul {
+        width: 100%;
+    }
+
+    .city li {
+        float: left;
+        width: 16.66%;
+        height: 30px;
+    }
+
+    .city a {
+        font: bold 20px/30px 'East Sea Dokdo', cursive;
+    }
+
+    /*큐브변경*/
+    .cube {
+        width: 200px;
+        height: 200px;
+    }
+
+    /*translateZ(100px)-사이즈의 절반변경*/
+    .cube > span:nth-child(1) {
+        transform: rotateY(0deg) translateZ(100px);
+    }
+
+    .cube > span:nth-child(2) {
+        transform: rotateY(90deg) translateZ(100px);
+    }
+
+    .cube > span:nth-child(3) {
+        transform: rotateY(180deg) translateZ(100px);
+    }
+
+    .cube > span:nth-child(4) {
+        transform: rotateY(270deg) translateZ(100px);
+    }
+
+    .cube > span:nth-child(5) {
+        transform: rotateX(90deg) translateZ(100px);
+    }
+
+    .cube > span:nth-child(6) {
+        transform: rotateX(-90deg) translateZ(100px);
+    }
+
+
+    /*배경고정 및 스크롤바 y축 생성하기*/
+    body {
+        overflow-y: auto;
+        background-attachment: fixed;
+    }
+
+    /*도시정보박스*/
+    .ctxt {
+        transform: translate(-50%, 30%);
+        top: 50%;
+        left: 50%;
+        width: 90%;
+        height: auto;
+        margin-bottom: 100px;
+    }
+
+    .ctxt p {
+        height: auto;
+    }
+
+
+}
+
+/*모바일 미디어쿼리*/
